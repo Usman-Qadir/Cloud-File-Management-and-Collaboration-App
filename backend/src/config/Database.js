@@ -1,5 +1,8 @@
-const Pool = require ('pg').Pool;
-require('dotenv').config();
+import pg from 'pg';
+import dotenv from 'dotenv';
+
+dotenv.config();
+const { Pool } = pg; // Import Pool from pg
 
 
 const pool = new Pool({
@@ -10,4 +13,4 @@ const pool = new Pool({
     database: 'FUMS'
 
 })
-module.exports = pool;
+export default pool;
