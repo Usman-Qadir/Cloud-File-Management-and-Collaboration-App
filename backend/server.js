@@ -11,11 +11,11 @@ const checkDatabaseConnection = async () => {
     console.log('Database current timestamp:', result.rows[0])
   } catch (err) {
     console.error('Error running query:', err.message)
-    process.exit(1) // Exit the process with a failure code
+    process.exit(1) //* Exit the process with a failure code
   }
 }
 
-checkDatabaseConnection() // Call the function
+checkDatabaseConnection() //* Call the function
 
 
 

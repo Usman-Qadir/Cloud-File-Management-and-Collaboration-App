@@ -3,11 +3,12 @@ import cors from "cors"
 import pool from "../src/config/Database.js"
 
 const app = express()
+app.use (express.urlencoded({ extended: true }))
 
 app.use(express.json())
 app.use(cors())
 
-// Root route
+//* Root route
 app.get("/", (req, res) => {
   res.send("Backend server is running")
 });
