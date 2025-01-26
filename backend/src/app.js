@@ -1,6 +1,7 @@
 import express  from "express"
 import cors from "cors"
 import pool from "../src/config/Database.js"
+import router from "./routes/fileRoutes.js"
 
 const app = express()
 app.use (express.urlencoded({ extended: true }))
@@ -8,10 +9,17 @@ app.use (express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors())
 
+app.use("/api/files", router)
+
 //* Root route
 app.get("/", (req, res) => {
   res.send("Backend server is running")
 });
+
+app.get("/api/files/uploads", (req, res) => {
+  res.send("API is running")
+})
+
 
 // Database test route
 app.get("/check-database", async (req, res) => {
@@ -33,20 +41,13 @@ app.get("/users", async (req, res) => {
   }
 })
 
-app.post("/upload", async (req, res) => {
-  try {
-    // Assuming you use Multer to handle file uploads
-    const files = req.files; // Handle files processed by Multer
-    if (!files || files.length === 0) {
-      return res.status(400).json({ success: false, message: "No files uploaded." });
-    }
-
-    // Example: Sending back file details
-    res.status(200).json({ success: true, data: files });
-  } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
-  }
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error("Unhandled Error:", err);
+  res.status(500).json({ success: false, message: "Internal Server Error", error: err.message });
 });
+
+
 
 
 export default app;
