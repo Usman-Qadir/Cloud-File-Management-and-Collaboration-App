@@ -4,7 +4,7 @@ import "./App.css";
 function App() {
   const [selectedFiles, setSelectedFiles] = useState(null);
 
-  //* Handle file selection
+  // Handle file selection
   const selectedFilesHandler = (event) => {
     const files = event.target.files;
     if (files.length > 0) {
@@ -12,7 +12,7 @@ function App() {
     }
   };
 
-  //* Handle file upload
+  // Handle file upload
   const uploadHandler = async () => {
     if (!selectedFiles || selectedFiles.length === 0) {
       alert("Please select at least one file.");
@@ -21,7 +21,7 @@ function App() {
 
     const formData = new FormData();
 
-    //* Append each file to FormData with the key "file"
+    // Append each file to FormData with the key "file"
     Array.from(selectedFiles).forEach((file) => {
       formData.append("file", file); // Use the same key for all files
     });
@@ -34,7 +34,7 @@ function App() {
 
       if (!response.ok) {
         const errorResult = await response.text();
-        console.error("Response Error:", errorResult); //* Log the exact error
+        console.error("Response Error:", errorResult); // Log the exact error
         alert("Upload failed. Check console for details.");
         return;
       }
@@ -46,7 +46,7 @@ function App() {
       console.error("Network Error:", error);
       alert("A network error occurred. Please try again.");
     }
-  }; 
+  }; // <-- Added missing closing brace for the uploadHandler function
 
   return (
     <div className="app">
@@ -54,12 +54,12 @@ function App() {
         <h2>Upload Your Files</h2>
       </header>
 
-      //* Drag and Drop Box 
+      {/* Drag and Drop Box */}
       <div className="drag-drop-box">
         Drag and drop your files here
       </div>
 
-      //* File Input and Label 
+      {/* File Input and Label */}
       <label htmlFor="fileInput" className="select-button">
         Select files from computer
       </label>
@@ -67,12 +67,12 @@ function App() {
         type="file"
         id="fileInput"
         name="file"
-        style={{ display: "none" }} //* Hide the input element
-        multiple //* Allow multiple file selection
+        style={{ display: "none" }} // Hide the input element
+        multiple // Allow multiple file selection
         onChange={selectedFilesHandler}
       />
 
-      //* Selected Files Preview 
+      {/* Selected Files Preview */}
       {selectedFiles && selectedFiles.length > 0 && (
         <div className="selected-files-preview">
           <h3>Selected Files:</h3>
@@ -86,7 +86,7 @@ function App() {
         </div>
       )}
 
-      //* Upload Button 
+      {/* Upload Button */}
       <button className="upload-button" onClick={uploadHandler}>
         Upload Files
       </button>
